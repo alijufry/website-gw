@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ali Secret Lab — Robotics, AI & Full-stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0b14;--bg2:#141120;--fg:#f3f0fa;--mut:#9a93b0;--line:#2a2540;--acc:#a78bfa;--acc2:#5eead4;--btn:#f3f0fa;--btnfg:#0d0b14;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#faf8ff;--bg2:#f0ecfb;--fg:#17132a;--mut:#6a6285;--line:#ddd6f3;--acc:#6d3df0;--acc2:#0d9488;--btn:#17132a;--btnfg:#faf8ff;color-scheme:light}}
+:root[data-theme="light"]{--bg:#faf8ff;--bg2:#f0ecfb;--fg:#17132a;--mut:#6a6285;--line:#ddd6f3;--acc:#6d3df0;--acc2:#0d9488;--btn:#17132a;--btnfg:#faf8ff;color-scheme:light}
+:root[data-theme="dark"]{--bg:#0d0b14;--bg2:#141120;--fg:#f3f0fa;--mut:#9a93b0;--line:#2a2540;--acc:#a78bfa;--acc2:#5eead4;--btn:#f3f0fa;--btnfg:#0d0b14;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(80px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;transition:background .3s}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:60}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{font-weight:700;font-size:22px;letter-spacing:-.03em}
+.logo span{color:var(--mut);font-weight:400;font-size:12px;margin-left:10px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc2);box-shadow:0 0 10px var(--acc2);margin-left:6px;animation:p 2s infinite}
+@keyframes p{50%{opacity:.35}}
+nav.links{display:flex;gap:28px}
+nav.links a{color:var(--mut);transition:.2s;padding:4px 0;border-bottom:2px solid transparent}
+nav.links a:hover,nav.links a.on{color:var(--fg);border-color:var(--acc)}
+.right{display:flex;gap:10px;align-items:center}
+.ib{background:none;border:1px solid var(--line);color:var(--fg);width:40px;height:40px;cursor:pointer;font-size:16px;border-radius:8px}
+.ib:hover{border-color:var(--acc)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--btn);color:var(--btnfg);padding:12px 22px;border-radius:999px;border:1px solid var(--btn);transition:.25s;cursor:pointer}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px color-mix(in srgb,var(--acc) 45%,transparent)}
+.btn.ghost{background:none;color:var(--fg);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--acc)}
+.hero{padding:90px 0 70px;position:relative}
+.hero::before{content:"";position:absolute;right:-10%;top:-5%;width:620px;height:620px;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 28%,transparent),transparent 65%);filter:blur(30px);pointer-events:none}
+.hgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:center;position:relative}
+.eyebrow{color:var(--mut);display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--acc2)}
+h1{font-size:clamp(40px,6.6vw,84px);line-height:1.02;letter-spacing:-.045em;font-weight:700}
+h1 em{font-style:normal;background:linear-gradient(100deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mut);font-size:clamp(17px,2vw,21px);max-width:560px;margin:28px 0 38px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.orbbox{display:flex;justify-content:center}
+#orb{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:clamp(7px,1.25vw,11px);line-height:1.02;letter-spacing:.05em;color:var(--acc);white-space:pre;text-shadow:0 0 14px color-mix(in srgb,var(--acc) 50%,transparent);user-select:none}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid var(--line);margin-top:70px;padding-top:28px}
+.stats div b{display:block;font-family:'JetBrains Mono',monospace;font-size:clamp(15px,2vw,20px);margin-top:6px;text-transform:uppercase}
+.stats .mono{color:var(--mut);font-size:11px}
+section{padding:90px 0;border-top:1px solid var(--line)}
+.tag{color:var(--mut);margin-bottom:18px;display:flex;gap:10px;align-items:center}
+.tag i{width:8px;height:8px;border-radius:50%;background:var(--fg)}
+h2{font-size:clamp(34px,5vw,60px);letter-spacing:-.04em;line-height:1.05;margin-bottom:18px}
+.sub{color:var(--mut);max-width:620px;font-size:18px}
+.filters{display:flex;gap:26px;flex-wrap:wrap;margin:44px 0 10px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.filters button{background:none;border:0;color:var(--mut);font:inherit;cursor:pointer;padding:4px 0;border-bottom:2px solid transparent}
+.filters button.on,.filters button:hover{color:var(--fg);border-color:var(--acc)}
+.proj{display:grid;grid-template-columns:240px 1fr;gap:40px;padding:50px 0;border-bottom:1px solid var(--line);transition:opacity .4s}
+.proj.hide{display:none}
+.meta p{color:var(--mut);margin-bottom:8px;font-size:12px}
+.meta p b{color:var(--fg);font-weight:500}
+.ttl{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:12px}
+.ttl h3{font-size:clamp(30px,4vw,46px);letter-spacing:-.04em;line-height:1}
+.badge{color:var(--acc2);border:1px solid color-mix(in srgb,var(--acc2) 45%,transparent);background:color-mix(in srgb,var(--acc2) 10%,transparent);padding:4px 10px;font-size:11px}
+.proj h4{font-size:22px;font-weight:500;margin-bottom:12px;letter-spacing:-.02em}
+.proj p.d{color:var(--mut);max-width:680px}
+.shot{margin:26px 0;border:1px solid var(--line);border-radius:14px;background:var(--bg2);overflow:hidden;transition:.35s}
+.proj:hover .shot{border-color:var(--acc);transform:translateY(-3px)}
+.shot .bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.shot .bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.shot pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.7;padding:18px 20px;overflow-x:auto;color:var(--mut)}
+.shot pre b{color:var(--acc);font-weight:500}.shot pre s{color:var(--acc2);text-decoration:none}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips span{border:1px solid var(--line);padding:5px 12px;border-radius:999px;font-size:11px;color:var(--mut)}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.card{border:1px solid var(--line);background:var(--bg2);border-radius:16px;padding:28px;transition:.3s}
+.card:hover{border-color:var(--acc);transform:translateY(-4px)}
+.card h3{font-size:20px;margin:14px 0 10px;letter-spacing:-.02em}
+.card p{color:var(--mut);font-size:15px;margin-bottom:16px}
+.card .ic{font-size:26px}
+.bars{margin-top:46px;display:grid;grid-template-columns:1fr 1fr;gap:18px 50px}
+.bar2 .row{display:flex;justify-content:space-between;margin-bottom:8px}
+.bar2 .t{height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar2 .t i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:10px}
+.about p{color:var(--mut);margin-bottom:18px;font-size:18px}
+.tl{border-left:1px solid var(--line);padding-left:26px}
+.tl div{position:relative;padding-bottom:30px}
+.tl div::before{content:"";position:absolute;left:-31px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc)}
+.tl .mono{color:var(--acc2)}
+.tl h4{font-size:19px;margin:4px 0}
+.tl p{font-size:15px;margin:0}
+.contact{text-align:center;padding:110px 0}
+.contact h2{font-size:clamp(40px,7vw,92px)}
+.contact .sub{margin:0 auto 38px}
+.cta.c{justify-content:center}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer small{opacity:.7}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}
+.rv.in{opacity:1;transform:none}
+@media(max-width:900px){nav.links{display:none}.hgrid,.about{grid-template-columns:1fr}.orbbox{order:-1}.proj{grid-template-columns:1fr;gap:16px}.skills{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.bars{grid-template-columns:1fr}.hero{padding-top:50px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+<a class="logo" href="#top">ALI<span class="mono">Secret Lab<i class="dot"></i></span></a>
+<nav class="links mono"><a href="#work">Work</a><a href="#skills">Skills</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+<div class="right"><button class="ib" id="th" aria-label="Toggle theme">◐</button><a class="btn mono" href="#contact" style="padding:11px 18px">Contact →</a></div>
+</div></header>
+
+<main id="top">
+<div class="hero"><div class="wrap">
+<div class="hgrid">
+<div>
+<div class="eyebrow mono"><i></i>Robotics · AI Engineer · Full-stack Developer · Remote</div>
+<h1>I build robots that <em>see, talk,</em> and move.</h1>
+<p class="lead">From life-size humanoids to full-stack apps, IoT and AI, I build the systems that run workshops, offices and restaurants. Built on a budget, engineered like it isn’t.</p>
+<div class="cta"><a class="btn mono" href="#work">View selected work ↓</a><a class="btn ghost mono" href="#contact">Get in touch →</a></div>
+</div>
+<div class="orbbox"><pre id="orb" aria-hidden="true"></pre></div>
+</div>
+<div class="stats">
+<div><span class="mono">Active builds</span><b>2 Humanoid stacks</b></div>
+<div><span class="mono">Servo channels</span><b id="cnt">32 PWM</b></div>
+<div><span class="mono">Core stack</span><b>Python · JS · IoT</b></div>
+<div><span class="mono">Availability</span><b>Open to collab</b></div>
+</div>
+</div></div>
+
+<section id="work"><div class="wrap">
+<div class="tag mono rv"><i></i>01 // Selected work &amp; system archive</div>
+<h2 class="rv">Selected Work</h2>
+<p class="sub rv">Hardware-first projects with serious software behind them: control systems, calibration pipelines and AI integration. Some entries are concept showcases.</p>
+<div class="filters mono" id="f">
+<button class="on" data-f="all">All (6)</button><button data-f="robot">Humanoid</button><button data-f="software">Control Software</button><button data-f="ai">AI · Vision</button><button data-f="biz">Business Systems</button>
+</div>
+
+<article class="proj rv" data-c="robot ai">
+<div class="meta mono"><p>Dossier // 01</p><p>Year: <b>2026</b></p><p>Role: <b>Designer &amp; Full-stack Builder</b></p><p>Status: <b>Active</b></p></div>
+<div><div class="ttl"><h3>XEEMA</h3><span class="badge mono">★ Flagship build</span></div>
+<h4>Life-size humanoid with a Python command core</h4>
+<p class="d">A modular humanoid platform: one controller coordinates Arduino motion boards, a head-mounted display with an animated ASCII orb, voice conversation, and camera-based face tracking, all steered from a single CLI and live dashboard.</p>
+<div class="shot"><div class="bar"><i></i><i></i><i></i></div><pre><b>xeema@core</b>:~$ xeema boot
+<s>[ ok ]</s> serial bridge ........ 4 boards online
+<s>[ ok ]</s> calibration ......... loaded
+<s>[ ok ]</s> voice ............... STT → LLM → TTS
+<s>[ ok ]</s> vision .............. face tracking armed
+<b>xeema</b> ▸ say "hello, I am online"</pre></div>
+<div class="chips"><span>Python</span><span>Arduino</span><span>OpenCV</span><span>Gemini API</span><span>Edge TTS</span><span>NEMA17</span><span>MG996R</span></div></div>
+</article>
+
+<article class="proj rv" data-c="software robot">
+<div class="meta mono"><p>Dossier // 02</p><p>Year: <b>2026</b></p><p>Role: <b>Software &amp; Hardware</b></p><p>Status: <b>Shipped</b></p></div>
+<div><div class="ttl"><h3>Gesture Studio</h3><span class="badge mono">Desktop tool</span></div>
+<h4>A dark-mode GUI to pose and animate a robot directly</h4>
+<p class="d">A Tkinter studio that talks straight from PC to Arduino. Angle-to-microsecond calibration lives in Python, driven by one JSON hardware config, so tuning a joint never means reflashing firmware.</p>
+<div class="shot"><div class="bar"><i></i><i></i><i></i></div><pre><b>hardware.json</b>
+{ "servos": <s>32</s>, "steppers": <s>4</s>,
+  "drivers": ["PCA9685", "PCA9685"],
+  "calibration": "python-side" }</pre></div>
+<div class="chips"><span>Python</span><span>Tkinter</span><span>PCA9685</span><span>RAMPS 1.4</span><span>Piper TTS</span></div></div>
+</article>
+
+<article class="proj rv" data-c="ai">
+<div class="meta mono"><p>Dossier // 03</p><p>Year: <b>2026</b></p><p>Role: <b>Concept</b></p><p>Status: <b>Sample</b></p></div>
+<div><div class="ttl"><h3>FaceMemory</h3><span class="badge mono">Concept</span></div>
+<h4>A robot that remembers every person it meets</h4>
+<p class="d">Showcase concept: lightweight face recognition links each registered person to their own conversation history, so the robot greets you by name and picks the thread back up.</p>
+<div class="chips"><span>OpenCV</span><span>SQLite</span><span>Whisper</span><span>LLM</span></div></div>
+</article>
+
+<article class="proj rv" data-c="software robot">
+<div class="meta mono"><p>Dossier // 04</p><p>Year: <b>2026</b></p><p>Role: <b>Systems</b></p><p>Status: <b>Sample</b></p></div>
+<div><div class="ttl"><h3>Sentinel Mesh</h3><span class="badge mono">Concept</span></div>
+<h4>Hybrid obstacle awareness on a budget</h4>
+<p class="d">Showcase concept: ultrasonic sensors for reflexes, a camera for context, and room-level sensing for the big picture, fused into one safety layer for a walking-speed robot.</p>
+<div class="chips"><span>HC-SR04</span><span>ROS 2</span><span>Sensor fusion</span><span>Python</span></div></div>
+</article>
+
+<article class="proj rv" data-c="biz software">
+<div class="meta mono"><p>Dossier // 05</p><p>Year: <b>2026</b></p><p>Role: <b>Full-stack &amp; IoT</b></p><p>Status: <b>Sample</b></p></div>
+<div><div class="ttl"><h3>DineFlow</h3><span class="badge mono">Restaurant OS</span></div>
+<h4>One system from table to kitchen to cashier</h4>
+<p class="d">Showcase concept: QR table ordering, a live kitchen display, POS with split bills, inventory alerts and a sales dashboard, all synced in real time. Optional IoT hooks for order buzzers and stock sensors.</p>
+<div class="shot"><div class="bar"><i></i><i></i><i></i></div><pre><b>order #0142</b>  Table 7
+<s>●</s> 2× Nasi Goreng ........ kitchen: cooking
+<s>●</s> 1× Es Teh ............. bar: ready
+<b>total</b> Rp 94.000  ▸ pay at table</pre></div>
+<div class="chips"><span>Next.js</span><span>PostgreSQL</span><span>WebSockets</span><span>MQTT</span><span>POS</span></div></div>
+</article>
+
+<article class="proj rv" data-c="biz software ai">
+<div class="meta mono"><p>Dossier // 06</p><p>Year: <b>2026</b></p><p>Role: <b>Systems &amp; AI</b></p><p>Status: <b>Sample</b></p></div>
+<div><div class="ttl"><h3>OfficeHub</h3><span class="badge mono">Company suite</span></div>
+<h4>Internal tools that a growing company actually needs</h4>
+<p class="d">Showcase concept: attendance, inventory, invoicing, approvals and reporting in one role-based platform, with an AI assistant that answers questions about company data.</p>
+<div class="chips"><span>React</span><span>Node.js</span><span>REST API</span><span>RBAC</span><span>LLM assistant</span></div></div>
+</article>
+</div></section>
+
+<section id="skills"><div class="wrap">
+<div class="tag mono rv"><i></i>02 // Capabilities</div>
+<h2 class="rv">What I build with</h2>
+<div class="skills">
+<div class="card rv"><div class="ic">⚙️</div><h3>Robotics &amp; Motion</h3><p>Servo and stepper control, joint calibration, multi-board coordination for humanoid frames.</p><div class="chips"><span>Servos</span><span>NEMA17</span><span>PCA9685</span></div></div>
+<div class="card rv"><div class="ic">🧠</div><h3>AI Engineering</h3><p>LLM apps, assistants and voice loops: speech-to-text, reasoning and natural text-to-speech.</p><div class="chips"><span>Whisper</span><span>Gemini</span><span>Piper</span></div></div>
+<div class="card rv"><div class="ic">👁️</div><h3>Computer Vision</h3><p>Face tracking and recognition tuned for low-power single-board computers.</p><div class="chips"><span>OpenCV</span><span>Tracking</span></div></div>
+<div class="card rv"><div class="ic">🖥️</div><h3>Tooling &amp; GUIs</h3><p>CLIs, dashboards and desktop studios that make hard hardware pleasant to operate.</p><div class="chips"><span>Python</span><span>Tkinter</span><span>CLI</span></div></div>
+<div class="card rv"><div class="ic">🔌</div><h3>Embedded Systems</h3><p>Arduino firmware, serial protocols and Linux-based controllers on Armbian.</p><div class="chips"><span>Arduino</span><span>Serial</span><span>Linux</span></div></div>
+<div class="card rv"><div class="ic">🌐</div><h3>Full-stack Development</h3><p>Front-end to database: fast, secure web platforms with clean APIs and real-time features.</p><div class="chips"><span>React</span><span>Node.js</span><span>PostgreSQL</span></div></div>
+<div class="card rv"><div class="ic">📱</div><h3>Apps &amp; Products</h3><p>Web and mobile apps built from idea to launch, with interfaces people enjoy using.</p><div class="chips"><span>PWA</span><span>Mobile</span><span>UI/UX</span></div></div>
+<div class="card rv"><div class="ic">📡</div><h3>IoT &amp; Automation</h3><p>Connected sensors, devices and dashboards that automate the physical world.</p><div class="chips"><span>MQTT</span><span>ESP32</span><span>Dashboards</span></div></div>
+<div class="card rv"><div class="ic">🏢</div><h3>Business Systems</h3><p>Custom software for offices, companies and restaurants: POS, inventory, HR, invoicing and reporting.</p><div class="chips"><span>POS</span><span>ERP-lite</span><span>Reporting</span></div></div>
+</div>
+<div class="bars">
+<div class="bar2 rv"><div class="row mono"><span>Python</span><span>92%</span></div><div class="t"><i data-w="92"></i></div></div>
+<div class="bar2 rv"><div class="row mono"><span>Arduino / C++</span><span>85%</span></div><div class="t"><i data-w="85"></i></div></div>
+<div class="bar2 rv"><div class="row mono"><span>Robot control</span><span>88%</span></div><div class="t"><i data-w="88"></i></div></div>
+<div class="bar2 rv"><div class="row mono"><span>Computer vision</span><span>74%</span></div><div class="t"><i data-w="74"></i></div></div>
+<div class="bar2 rv"><div class="row mono"><span>Full-stack development</span><span>88%</span></div><div class="t"><i data-w="88"></i></div></div>
+<div class="bar2 rv"><div class="row mono"><span>AI engineering</span><span>86%</span></div><div class="t"><i data-w="86"></i></div></div>
+<div class="bar2 rv"><div class="row mono"><span>IoT &amp; business systems</span><span>84%</span></div><div class="t"><i data-w="84"></i></div></div>
+</div>
+</div></section>
+
+<section id="about"><div class="wrap">
+<div class="tag mono rv"><i></i>03 // About</div>
+<h2 class="rv">Hands-on, end to end.</h2>
+<div class="about">
+<div class="rv"><p>I’m an independent builder across robotics, AI and full-stack software. I design the frame, wire the electronics, write the firmware, and ship the apps and systems that make it useful, whether that’s a humanoid or a restaurant’s ordering platform.</p><p>My focus is stability and usability: calibration that doesn’t break, tools that explain themselves, and robots that feel like products rather than demos.</p><a class="btn mono" href="#contact">Work with me →</a></div>
+<div class="tl rv">
+<div><span class="mono">Foundation</span><h4>Hardware &amp; firmware</h4><p>Arduino-driven motion with servo and stepper stacks.</p></div>
+<div><span class="mono">Tooling</span><h4>Control software</h4><p>Python CLIs and GUIs with config-driven calibration.</p></div>
+<div><span class="mono">Intelligence</span><h4>Voice &amp; vision</h4><p>Speech, LLMs and camera pipelines on embedded Linux.</p></div>
+<div><span class="mono">Now</span><h4>Humanoid integration</h4><p>Merging everything into one life-size platform.</p></div>
+</div></div>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+<div class="tag mono rv" style="justify-content:center"><i></i>04 // Contact</div>
+<h2 class="rv">Let’s build something that moves.</h2>
+<p class="sub rv">Open to collaborations, custom robotics, AI, IoT and business systems for offices, companies and restaurants.</p>
+<div class="cta c rv"><a class="btn mono" href="mailto:hello@example.com">Say hello →</a><a class="btn ghost mono" href="https://github.com" target="_blank" rel="noopener">GitHub ↗</a></div>
+<p class="mono rv" style="margin-top:34px;color:var(--mut);font-size:11px">Reach out to Ali Jufry</p>
+</div></section>
+</main>
+
+<footer><div class="wrap mono"><span>© 2026 Ali Secret Lab</span><small>Designed &amp; built by Ali Jufry</small></div></footer>
+
+<script>
+// theme
+const root=document.documentElement;
+try{const s=localStorage.getItem('th');if(s)root.dataset.theme=s}catch(e){}
+document.getElementById('th').onclick=()=>{const n=root.dataset.theme==='dark'?'light':'dark';root.dataset.theme=n;try{localStorage.setItem('th',n)}catch(e){}};
+// reveal + bars
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// filters
+document.querySelectorAll('#f button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#f button').forEach(x=>x.classList.remove('on'));b.classList.add('on');const f=b.dataset.f;document.querySelectorAll('.proj').forEach(p=>p.classList.toggle('hide',f!=='all'&&!p.dataset.c.split(' ').includes(f)))});
+// active nav
+const secs=[...document.querySelectorAll('main section')],links=[...document.querySelectorAll('nav.links a')];
+addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(scrollY>=s.offsetTop-160)c='#'+s.id});links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===c))},{passive:true});
+// ASCII orb
+const o=document.getElementById('orb'),W=60,H=30,ramp=' .,:;-~=+*#%@';
+let t=0,mx=0,my=0,sx=0,sy=0;
+addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2},{passive:true});
+function frame(){
+sx+=(mx-sx)*.05;sy+=(my-sy)*.05;
+const buf=Array(W*H).fill(' '),pu=1+Math.sin(t*2)*.025;
+let lx=Math.cos(t*.5)*.55+sx*.7,ly=-.45+sy*.5,lz=.75;const ll=Math.hypot(lx,ly,lz);lx/=ll;ly/=ll;lz/=ll;
+let hx=lx,hy=ly,hz=lz+1;const hl=Math.hypot(hx,hy,hz);hx/=hl;hy/=hl;hz/=hl;
+for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+const nx=(x-W/2+.5)/(W*.34*pu),ny=(y-H/2+.5)/(H*.34*pu),r2=nx*nx+ny*ny;
+if(r2>1)continue;
+const nz=Math.sqrt(1-r2),dif=Math.max(0,nx*lx+ny*ly+nz*lz),sp=Math.pow(Math.max(0,nx*hx+ny*hy+nz*hz),28),rim=Math.pow(1-nz,2.6)*.55;
+const lon=Math.atan2(nx,nz)+t*.5,lat=Math.asin(ny);
+const grid=(Math.abs(Math.sin(lon*4))<.07||Math.abs(Math.sin(lat*5))<.07)?.2:0;
+const band=Math.sin(lat*9+t*2)*.04;
+const v=Math.max(0,Math.min(.999,.06+dif*.62+sp*.7+rim+grid*(.4+dif)+band));
+buf[y*W+x]=ramp[Math.floor(v*ramp.length)];}
+const tilt=.5+sy*.25,roll=.38+sx*.15,ct=Math.cos(tilt),st=Math.sin(tilt),cr=Math.cos(roll),sr=Math.sin(roll);
+function pt(a,R){const x=Math.cos(a)*R,z=Math.sin(a)*R,y1=-z*st,z1=z*ct,x2=x*cr-y1*sr,y2=x*sr+y1*cr;return[Math.round(W/2+x2*W*.34),Math.round(H/2+y2*H*.34),z1]}
+for(let a=0;a<6.2832;a+=.01){const[px,py,z]=pt(a,1.42);if(px<0||px>=W||py<0||py>=H)continue;const i=py*W+px;
+if(z>=0)buf[i]=z>.7?'=':'-';else if(buf[i]===' ')buf[i]='.'}
+for(let k=0;k<3;k++){const[px,py,z]=pt(t*1.3+k*2.094,1.42);if(px<0||px>=W||py<0||py>=H)continue;if(z>=0||buf[py*W+px]===' ')buf[py*W+px]='@'}
+let s='';for(let y=0;y<H;y++)s+=buf.slice(y*W,y*W+W).join('')+'\n';o.textContent=s}
+function loop(){frame();t+=.035;requestAnimationFrame(loop)}
+if(matchMedia('(prefers-reduced-motion:reduce)').matches)frame();else loop();
+</script>
+</body>
+</html>
